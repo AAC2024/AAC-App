@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #draggableImage {
+      width: 200px; 
+      height: auto;
+      position: absolute;
+      cursor: move;
+      resize: both;
+      overflow: auto;
+
+      /* Setting min and max width for resizing */
+      min-width: 150px;
+      max-width: 500px;
+      transform-origin: center;
+    }
+
+    body {
+      touch-action: none; /* Prevent default zoom and scroll behaviors */
+    }
+  </style>
+</head>
+<body>
+
+<img id="draggableImage" class="resizable" src="https://example.com/your-gate-image.png" alt="Gate Design">
+
+<script>
+  var img = document.getElementById("draggableImage");
+
+  // Variables for dragging
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+  img.onmousedown = dragMouseDown;
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    img.style.top = (img.offsetTop - pos2) + "px";
+    img.style.left = (img.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+
+  // Pinch-to-zoom implementation
+  var initialDistance = null;
+  var initialWidth = img.clientWidth;
+
+  window.addEventListener('touchmove', function(e) {
+    if (e.touches.length == 2) {
+      var touch1 = e.touches[0];
+      var touch2 = e.touches[1];
+
+      // Calculate the distance between the two touches
+      var currentDistance = Math.sqrt(Math.pow(touch1.clientX - touch2.clientX, 2) + Math.pow(touch1.clientY - touch2.clientY, 2));
+
+      // First time touchmove is called with two fingers, store the initial distance
+      if (!initialDistance) {
+        initialDistance = currentDistance;
+      }
+
+      // Calculate the scaling factor
+      var scaleFactor = currentDistance / initialDistance;
+
+      // Update the image width, ensuring it stays within min/max constraints
+      var newWidth = initialWidth * scaleFactor;
+      if (newWidth >= 150 && newWidth <= 500) {
+        img.style.width = newWidth + 'px';
+      }
+    }
+  });
+
+  window.addEventListener('touchend', function(e) {
+    if (e.touches.length < 2) {
+      initialDistance = null;
+      initialWidth = img.clientWidth;
+    }
+  });
+
+  // Double-tap to resize to default size
+  var lastTap = 0;
+  img.addEventListener('touchend', function(e) {
+    var currentTime = new Date().getTime();
+    var tapLength = currentTime - lastTap;
+    if (tapLength < 300 && tapLength > 0) {
+      // Reset image size on double-tap
+      img.style.width = '200px';
+    }
+    lastTap = currentTime;
+  });
+
+  // Rotate gesture
+  var initialAngle = null;
+  window.addEventListener('touchmove', function(e) {
+    if (e.touches.length == 2) {
+      var touch1 = e.touches[0];
+      var touch2 = e.touches[1];
+
+      // Calculate the current angle between the two fingers
+      var angle = Math.atan2(touch2.clientY - touch1.clientY, touch2.clientX - touch1.clientX) * 180 / Math.PI;
+
+      if (!initialAngle) {
+        initialAngle = angle;
+      }
+
+      // Calculate the rotation difference and apply the transform
+      var rotation = angle - initialAngle;
+      img.style.transform = `rotate(${rotation}deg)`;
+    }
+  });
+
+  window.addEventListener('touchend', function(e) {
+    if (e.touches.length < 2) {
+      initialAngle = null;
+    }
+  });
+</script>
+
+</body>
+</html>
