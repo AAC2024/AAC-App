@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    .draggableImage {
-      width: 200px; 
-      height: auto;
-      position: absolute;
-      cursor: move;
-      resize: both;
-      overflow: auto;
+<style>
+  .draggableImage {
+    width: 200px; 
+    height: auto;
+    position: absolute;
+    cursor: move;
+    resize: both;
+    overflow: auto;
+    min-width: 150px;
+    max-width: 500px;
+    transform-origin: center;
+    margin-bottom: 20px; /* Adds space below each image */
+  }
 
-      /* Setting min and max width for resizing */
-      min-width: 150px;
-      max-width: 500px;
-      transform-origin: center;
-    }
+  body {
+    touch-action: none; /* Prevent default zoom and scroll behaviors */
+  }
+</style>
 
-    body {
-      touch-action: none; /* Prevent default zoom and scroll behaviors */
-    }
-  </style>
 </head>
 <body>
 
