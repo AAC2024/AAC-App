@@ -69,50 +69,39 @@
   <!-- Hidden Download Link -->
   <a id="download-link" href="#" download="gate-design.png" style="display: none;">Download</a>
 
-  <script>
-    // Show/hide gate designs based on user selection from Thunkable
-    window.addEventListener('message', function(event) {
-      var message = event.data;
+ <script>
+// Listen for messages from Thunkable Web Viewer
+window.addEventListener('message', function(event) {
+  var message = event.data;
 
-      if (message === "showSwingGates();") {
-        showSwingGates();
-      } else if (message === "showCantileverGates();") {
-        showCantileverGates();
-      } else if (message === "showSlidingGates();") {
-        showSlidingGates();
-      }
-    }, false);
+  if (message === "showSwingGates();") {
+    showSwingGates();
+  } else if (message === "showCantileverGates();") {
+    showCantileverGates();
+  } else if (message === "showSlidingGates();") {
+    showSlidingGates();
+  }
+}, false);
 
-    // Show functions for each gate type
-    function showSwingGates() {
-      document.getElementById('swingGatesContainer').style.display = 'block';
-      document.getElementById('cantileverGatesContainer').style.display = 'none';
-      document.getElementById('slidingGatesContainer').style.display = 'none';
-    }
+function showSwingGates() {
+  document.getElementById('swingGatesContainer').style.display = 'block';
+  document.getElementById('cantileverGatesContainer').style.display = 'none';
+  document.getElementById('slidingGatesContainer').style.display = 'none';
+}
 
-    function showCantileverGates() {
-      document.getElementById('swingGatesContainer').style.display = 'none';
-      document.getElementById('cantileverGatesContainer').style.display = 'block';
-      document.getElementById('slidingGatesContainer').style.display = 'none';
-    }
+function showCantileverGates() {
+  document.getElementById('swingGatesContainer').style.display = 'none';
+  document.getElementById('cantileverGatesContainer').style.display = 'block';
+  document.getElementById('slidingGatesContainer').style.display = 'none';
+}
 
-    function showSlidingGates() {
-      document.getElementById('swingGatesContainer').style.display = 'none';
-      document.getElementById('cantileverGatesContainer').style.display = 'none';
-      document.getElementById('slidingGatesContainer').style.display = 'block';
-    }
+function showSlidingGates() {
+  document.getElementById('swingGatesContainer').style.display = 'none';
+  document.getElementById('cantileverGatesContainer').style.display = 'none';
+  document.getElementById('slidingGatesContainer').style.display = 'block';
+}
+</script>
 
-    // Function to save the image
-    function saveImage(imageId) {
-      var imageElement = document.getElementById(imageId);
-      var link = document.getElementById('download-link');
-
-      // Set the href of the download link to the image's source
-      link.href = imageElement.src;
-      link.download = 'gate-design.png'; // You can customize this dynamically
-      link.click();
-    }
-  </script>
 
 </body>
 </html>
