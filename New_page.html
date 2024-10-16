@@ -6,7 +6,7 @@
   <title>Gate Designs</title>
   <style>
     body {
-      touch-action: none;
+      touch-action: none; /* Prevent default zoom and scroll behaviors */
     }
 
     .draggableContainer {
@@ -16,7 +16,7 @@
     }
 
     .draggableImage {
-      width: 200px;
+      width: 200px; 
       height: auto;
       cursor: move;
       resize: both;
@@ -25,93 +25,80 @@
       max-width: 500px;
       transform-origin: center;
       margin-bottom: 20px;
-    }
-
-    /* Initially hide all gate containers */
-    #swingGatesContainer, #cantileverGatesContainer, #slidingGatesContainer {
-      display: none;
+      position: relative;
     }
   </style>
 </head>
 <body>
 
-<div id="swingGatesContainer">
-  <!-- Swing gates images -->
+<!-- Swing Gates -->
+<div id="swingGatesContainer" style="display:none;">
   <div class="draggableContainer">
     <img class="draggableImage" src="https://raw.githubusercontent.com/AAC2024/AAC-App/main/Hardwood%20iroko%20straight%20bar%20infill%20arch%20top%20swing%20gates.png?raw=true" alt="Gate Design 1">
   </div>
-  <div class="draggableContainer">
-    <img class="draggableImage" src="https://raw.githubusercontent.com/AAC2024/AAC-App/main/bow%20top%20iroko%20swing%20gates%20partial%20infill.png?raw=true" alt="Gate Design 8">
-  </div>
+  <!-- Add other swing gates here -->
 </div>
 
-<div id="cantileverGatesContainer">
-  <!-- Cantilever gates images -->
+<!-- Cantilever Gates -->
+<div id="cantileverGatesContainer" style="display:none;">
   <div class="draggableContainer">
     <img class="draggableImage" src="https://raw.githubusercontent.com/AAC2024/AAC-App/main/Bow%20top%20comp%20infill%20cantilever%20gate.png?raw=true" alt="Gate Design 19">
   </div>
-  <div class="draggableContainer">
-    <img class="draggableImage" src="https://raw.githubusercontent.com/AAC2024/AAC-App/main/Partial%20infill%20cantilever%20gate%20wood%20panels%20and%20railings%20straight%20bar%20at%20top.png?raw=true" alt="Gate Design 3">
-  </div>
+  <!-- Add other cantilever gates here -->
 </div>
 
-<div id="slidingGatesContainer">
-  <!-- Sliding gates images -->
+<!-- Sliding Gates -->
+<div id="slidingGatesContainer" style="display:none;">
   <div class="draggableContainer">
     <img class="draggableImage" src="https://raw.githubusercontent.com/AAC2024/AAC-App/main/bow%20top%20comp%20wood%20infill%20sliding%20gate.png?raw=true" alt="Gate Design 7">
   </div>
-  <div class="draggableContainer">
-    <img class="draggableImage" src="https://raw.githubusercontent.com/AAC2024/AAC-App/main/bow%20top%20sliding%20gate%20with%20spikes%20metal%20infill.png?raw=true" alt="Gate Design 11">
-  </div>
+  <!-- Add other sliding gates here -->
 </div>
 
+<!-- Add a button for testing purposes to show all gates -->
+<button onclick="showAllGates()">Show All Gates</button>
+
 <script>
-// Listen for messages from Thunkable Web Viewer
-window.addEventListener('message', function(event) {
+  // Listen for messages from Thunkable Web Viewer
+  window.addEventListener('message', function(event) {
     var message = event.data;
-    console.log("Received message:", message);
 
     if (message === "showSwingGates();") {
-        console.log("Swing Gates button clicked");
-        showSwingGates();
+      showSwingGates();
     } else if (message === "showCantileverGates();") {
-        console.log("Cantilever Gates button clicked");
-        showCantileverGates();
+      showCantileverGates();
     } else if (message === "showSlidingGates();") {
-        console.log("Sliding Gates button clicked");
-        showSlidingGates();
+      showSlidingGates();
     }
-}, false);
+  }, false);
 
-// Functions to show the different gate types
-function showSwingGates() {
+  // Functions to show the different gate types
+  function showSwingGates() {
     document.getElementById('swingGatesContainer').style.display = 'block';
     document.getElementById('cantileverGatesContainer').style.display = 'none';
     document.getElementById('slidingGatesContainer').style.display = 'none';
-    console.log("Swing gates shown");
-}
+  }
 
-function showCantileverGates() {
+  function showCantileverGates() {
     document.getElementById('swingGatesContainer').style.display = 'none';
     document.getElementById('cantileverGatesContainer').style.display = 'block';
     document.getElementById('slidingGatesContainer').style.display = 'none';
-    console.log("Cantilever gates shown");
-}
+  }
 
-function showSlidingGates() {
+  function showSlidingGates() {
     document.getElementById('swingGatesContainer').style.display = 'none';
     document.getElementById('cantileverGatesContainer').style.display = 'none';
     document.getElementById('slidingGatesContainer').style.display = 'block';
-    console.log("Sliding gates shown");
-}
+  }
 
+  // Function to show all gates at once (for debugging)
   function showAllGates() {
-  document.getElementById('slidingGatesContainer').style.display = 'block';
-  document.getElementById('cantileverGatesContainer').style.display = 'block';
-  document.getElementById('swingGatesContainer').style.display = 'block';
-}
-
+    document.getElementById('slidingGatesContainer').style.display = 'block';
+    document.getElementById('cantileverGatesContainer').style.display = 'block';
+    document.getElementById('swingGatesContainer').style.display = 'block';
+  }
 </script>
 
 </body>
 </html>
+
