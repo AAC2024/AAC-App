@@ -69,13 +69,19 @@
   // Listen for messages from Thunkable Web Viewer
   window.addEventListener('message', function(event) {
     var message = event.data;
+    console.log("Received message from Thunkable: " + message); // Debugging statement
 
     if (message === "showSwingGates();") {
+      console.log("Calling showSwingGates()"); // Debugging statement
       showSwingGates();
     } else if (message === "showCantileverGates();") {
+      console.log("Calling showCantileverGates()"); // Debugging statement
       showCantileverGates();
     } else if (message === "showSlidingGates();") {
+      console.log("Calling showSlidingGates()"); // Debugging statement
       showSlidingGates();
+    } else {
+      console.log("Unknown message received: " + message); // If the message doesn't match
     }
   }, false);
 
@@ -101,4 +107,3 @@
 
 </body>
 </html>
-
