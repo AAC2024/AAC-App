@@ -66,43 +66,45 @@
 </div>
 
 <script>
-  // Listen for messages from Thunkable Web Viewer
-  window.addEventListener('message', function(event) {
+// Listen for messages from Thunkable Web Viewer
+window.addEventListener('message', function(event) {
     var message = event.data;
-    console.log("Received message from Thunkable: " + message); // Debugging statement
+    console.log("Received message:", message);
 
     if (message === "showSwingGates();") {
-      console.log("Calling showSwingGates()"); // Debugging statement
-      showSwingGates();
+        console.log("Swing Gates button clicked");
+        showSwingGates();
     } else if (message === "showCantileverGates();") {
-      console.log("Calling showCantileverGates()"); // Debugging statement
-      showCantileverGates();
+        console.log("Cantilever Gates button clicked");
+        showCantileverGates();
     } else if (message === "showSlidingGates();") {
-      console.log("Calling showSlidingGates()"); // Debugging statement
-      showSlidingGates();
-    } else {
-      console.log("Unknown message received: " + message); // If the message doesn't match
+        console.log("Sliding Gates button clicked");
+        showSlidingGates();
     }
-  }, false);
+}, false);
 
-  // Functions to show the different gate types
-  function showSwingGates() {
+// Functions to show the different gate types
+function showSwingGates() {
     document.getElementById('swingGatesContainer').style.display = 'block';
     document.getElementById('cantileverGatesContainer').style.display = 'none';
     document.getElementById('slidingGatesContainer').style.display = 'none';
-  }
+    console.log("Swing gates shown");
+}
 
-  function showCantileverGates() {
+function showCantileverGates() {
     document.getElementById('swingGatesContainer').style.display = 'none';
     document.getElementById('cantileverGatesContainer').style.display = 'block';
     document.getElementById('slidingGatesContainer').style.display = 'none';
-  }
+    console.log("Cantilever gates shown");
+}
 
-  function showSlidingGates() {
+function showSlidingGates() {
     document.getElementById('swingGatesContainer').style.display = 'none';
     document.getElementById('cantileverGatesContainer').style.display = 'none';
     document.getElementById('slidingGatesContainer').style.display = 'block';
-  }
+    console.log("Sliding gates shown");
+}
+
 </script>
 
 </body>
