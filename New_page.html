@@ -2,71 +2,78 @@
 <html>
 <head>
   <title>Select Your Gate Design</title>
+  <style>
+    body {
+      text-align: center;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Select Your Gate Design</h1>
+  <div id="gateContainer">
+    <img id="gateImage" src="" alt="Gate Design will appear here">
+  </div>
+
   <script>
-    let swingGates = [
-      'https://github.com/AAC2024/AAC-App/blob/main/Hardwood%20iroko%20straight%20bar%20infill%20arch%20top%20swing%20gates.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/bow%20top%20iroko%20swing%20gates%20partial%20infill.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/double%20leaf%20metal%20infill%20straight%20bar%20arch%20top%20swing%20gates.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/straight%20top%20comp%20infill%20set%20of%20swing%20gates.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/straight%20top%20horizontal%20box%20section%20infill%20swing%20gates.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/straight%20top%20partial%20infill%20metal%20frame%20wood%20infill%20swing%20gates.png?raw=true'
-    ];
-
-    let cantileverGates = [
-      'https://github.com/AAC2024/AAC-App/blob/main/Partial%20infill%20hardwood%20with%20metal%20railings%20at%20the%20top%20cantilever%20gate.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/Partila%20infill%20cantilever%20gate%20wood%20panels%20and%20railings%20straight%20bar%20at%20top.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/Straight%20top%20compinfill%20cantilever%20gate.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/arch%20top%20cantilever%20solid%20wood%20infill.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/arched%20top%20iroko%20hardwood%20cantilever%20gate%20partial%20wood%20and%20straight%20bar%20infill.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/cantilever%20bow%20top%20with%20straight%20round%20bar%20infill.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/cantilever%20straigh%20top%20design%20vertical%20and%20horizontal%20box%20section%20infill.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/wrought%20iron%20metal%20infill%20cantilever%20gate.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/Bow%20top%20comp%20infill%20cantilever%20gate.png?raw=true'
-    ];
-
-    let slidingGates = [
-      'https://github.com/AAC2024/AAC-App/blob/main/bow%20top%20comp%20wood%20infill%20sliding%20gate.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/bow%20top%20sliding%20gate%20metal%20infill.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/bow%20top%20sliding%20gate%20with%20spike%20metal%20infill.png?raw=true',
-      'https://github.com/AAC2024/AAC-App/blob/main/bow%20top%20sliding%20gate%20with%20spikes%20metal%20infill.png?raw=true'
-    ];
-
-    let currentSwingIndex = 0;
-    let currentCantileverIndex = 0;
-    let currentSlidingIndex = 0;
+    const gateImages = {
+      swingGates: [
+        'https://github.com/AAC2024/AAC-App/blob/main/Hardwood%20iroko%20straight%20bar%20infill%20arch%20top%20swing%20gates.png?raw=true',
+        'https://github.com/AAC2024/AAC-App/blob/main/bow%20top%20iroko%20swing%20gates%20partial%20infill.png?raw=true',
+        'https://github.com/AAC2024/AAC-App/blob/main/double%20leaf%20metal%20infill%20straight%20bar%20arch%20top%20swing%20gates.png?raw=true',
+        'https://github.com/AAC2024/AAC-App/blob/main/straight%20top%20comp%20infill%20set%20of%20swing%20gates.png?raw=true'
+      ],
+      cantileverGates: [
+        'https://github.com/AAC2024/AAC-App/blob/main/Partial%20infill%20hardwood%20with%20metal%20railings%20at%20the%20top%20cantilever%20gate.png?raw=true',
+        'https://github.com/AAC2024/AAC-App/blob/main/arch%20top%20cantilever%20solid%20wood%20infill.png?raw=true',
+        'https://github.com/AAC2024/AAC-App/blob/main/arched%20top%20iroko%20hardwood%20cantilever%20gate%20partial%20wood%20and%20straight%20bar%20infill.png?raw=true',
+        'https://github.com/AAC2024/AAC-App/blob/main/cantilever%20bow%20top%20with%20straight%20round%20bar%20infill.png?raw=true',
+        'https://github.com/AAC2024/AAC-App/blob/main/cantilever%20straigh%20top%20design%20vertical%20and%20horizontal%20box%20section%20infill.png?raw=true'
+      ],
+      slidingGates: [
+        'https://github.com/AAC2024/AAC-App/blob/main/bow%20top%20comp%20wood%20infill%20sliding%20gate.png?raw=true',
+        'https://github.com/AAC2024/AAC-App/blob/main/bow%20top%20sliding%20gate%20metal%20infill.png?raw=true',
+        'https://github.com/AAC2024/AAC-App/blob/main/bow%20top%20sliding%20gate%20with%20spike%20metal%20infill.png?raw=true',
+        'https://github.com/AAC2024/AAC-App/blob/main/straight%20top%20horizontal%20box%20section%20infill%20swing%20gates.png?raw=true'
+      ]
+    };
 
     function showSwingGates() {
-      const img = document.getElementById("gateImage");
-      img.src = swingGates[currentSwingIndex];
-      currentSwingIndex = (currentSwingIndex + 1) % swingGates.length;
+      displayImages(gateImages.swingGates);
     }
 
     function showCantileverGates() {
-      const img = document.getElementById("gateImage");
-      img.src = cantileverGates[currentCantileverIndex];
-      currentCantileverIndex = (currentCantileverIndex + 1) % cantileverGates.length;
+      displayImages(gateImages.cantileverGates);
     }
 
     function showSlidingGates() {
-      const img = document.getElementById("gateImage");
-      img.src = slidingGates[currentSlidingIndex];
-      currentSlidingIndex = (currentSlidingIndex + 1) % slidingGates.length;
+      displayImages(gateImages.slidingGates);
     }
 
-    window.addEventListener("message", function(event) {
-      if (event.data === "showSwingGates()") {
+    function displayImages(images) {
+      const gateContainer = document.getElementById('gateContainer');
+      gateContainer.innerHTML = ''; // Clear previous images
+      images.forEach(imageUrl => {
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        gateContainer.appendChild(img);
+      });
+    }
+
+    window.addEventListener('message', function(event) {
+      if (event.data === 'showSwingGates()') {
         showSwingGates();
-      } else if (event.data === "showCantileverGates()") {
+      } else if (event.data === 'showCantileverGates()') {
         showCantileverGates();
-      } else if (event.data === "showSlidingGates()") {
+      } else if (event.data === 'showSlidingGates()') {
         showSlidingGates();
       }
     });
   </script>
-</head>
-<body>
-  <h1>Select Your Gate Design</h1>
-  <img id="gateImage" src="" alt="Gate Design" style="width:100%; height:auto;">
 </body>
 </html>
+
 
