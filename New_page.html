@@ -5,17 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gate Design App</title>
     <style>
+        /* Ensure the Canvas is hidden initially and only shown when needed */
         #Canvas1 {
             position: absolute;
-            visibility: hidden; /* Canvas is initially hidden */
+            visibility: hidden; /* Hidden by default */
             top: 0;
             left: 0;
             z-index: 5;
+            background-color: transparent; /* Ensure no white background */
         }
+
+        /* Ensure the image3 is on top */
         #Image3 {
             position: absolute;
             z-index: 4;
         }
+
+        /* Web viewer adjustments if necessary */
+        #WebViewer {
+            position: absolute;
+            visibility: hidden; /* Initially hidden */
+            z-index: 3; /* Below canvas and image3 */
+        }
+
         /* Other styles for layout */
     </style>
 </head>
@@ -35,6 +47,9 @@
     <!-- Image3 for gate design -->
     <img id="Image3" src="" alt="Gate Design" style="width:200px;height:150px;"/>
 
+    <!-- Web Viewer (if needed) -->
+    <div id="WebViewer"></div>
+
     <!-- Finish Button -->
     <button id="FinishButton">Finish Editing</button>
 
@@ -42,6 +57,7 @@
         // When the user uploads a photo or selects a design
         function showCanvas() {
             document.getElementById('Canvas1').style.visibility = 'visible';
+            document.getElementById('WebViewer').style.visibility = 'hidden'; // Hide web viewer if it's overlapping
         }
 
         // When the user is done interacting or wants to hide the Canvas
@@ -53,7 +69,7 @@
         document.getElementById('UploadButton').addEventListener('click', function() {
             showCanvas();
             // Here, set the image from the upload to Image3, replace with your logic
-            document.getElementById('Image3').src = 'your-uploaded-image-path.png';
+            document.getElementById('Image3').src = 'your-uploaded-image-path.png'; // Add your uploaded image path here
         });
 
         // Swing Gates Designs
@@ -117,4 +133,5 @@
     </script>
 </body>
 </html>
+
 
