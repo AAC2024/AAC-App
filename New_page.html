@@ -3,117 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gate Design App</title>
+    <title>Gate Design Viewer</title>
     <style>
-        /* Ensure the Canvas is hidden initially and only shown when needed */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Set styles for canvas and images */
         #Canvas1 {
             position: absolute;
-            visibility: hidden; /* Hidden by default */
-            top: 0;
-            left: 0;
-            z-index: 1;
-            background-color: transparent; /* Ensure no white background */
+            z-index: 1; /* Behind everything else */
+            visibility: hidden; /* Initially hidden */
         }
 
-        /* Ensure the image3 is on top */
         #Image3 {
             position: absolute;
-            z-index: 2; /* Ensure Image3 is on top */
+            z-index: 2; /* Above the canvas */
         }
 
-        /* Web viewer adjustments if necessary */
         #WebViewer {
             position: absolute;
-            visibility: hidden; /* Initially hidden */
-            z-index: 3; /* Below canvas and image3 */
+            z-index: 3; /* WebViewer on top */
         }
     </style>
 </head>
 <body>
 
-    <!-- Upload Button -->
-    <button id="UploadButton">Upload Your Photo</button>
+    <h1>Select your gate design</h1>
+    <p>The gate design will appear here after selection.</p>
 
-    <!-- Gate Selection Buttons -->
-    <button id="SwingGateButton">Swing Gates</button>
-    <button id="CantileverGateButton">Cantilever Gates</button>
-    <button id="SlidingGateButton">Sliding Gates</button>
+    <!-- Upload Button for Uploading Custom Images -->
+    <button id="uploadButton">Upload Your Own Image</button>
 
-    <!-- Canvas where images are placed -->
+    <!-- Canvas Element for Gate Design Overlay -->
     <canvas id="Canvas1" width="500" height="400"></canvas>
 
-    <!-- Image3 for gate design -->
-    <img id="Image3" src="" alt="Gate Design" style="width:200px;height:150px;"/>
+    <!-- Image3 Element (The photo that the user uploads) -->
+    <img id="Image3" width="376" height="313" style="border: none;" />
 
-    <!-- Web Viewer (if needed) -->
-    <div id="WebViewer"></div>
+    <!-- Buttons for different gate categories -->
+    <button onclick="showSwingGates()">Swing Gates</button>
+    <button onclick="showCantileverGates()">Cantilever Gates</button>
+    <button onclick="showSlidingGates()">Sliding Gates</button>
 
-    <!-- Finish Button -->
-    <button id="FinishButton">Finish Editing</button>
+    <!-- Web Viewer for gate designs (Initially hidden) -->
+    <iframe id="WebViewer" src="" width="500" height="400" style="visibility: hidden;"></iframe>
 
+    <!-- JavaScript to handle photo uploads, gate selection, and canvas overlay -->
     <script>
-        // Function to show canvas
-        function showCanvas() {
-            document.getElementById('Canvas1').style.visibility = 'visible';
-            document.getElementById('WebViewer').style.visibility = 'hidden'; // Hide web viewer if it's overlapping
-            document.getElementById('Image3').style.visibility = 'visible'; // Show Image3 for the uploaded photo
+        let uploadedImage;
+
+        document.getElementById('uploadButton').addEventListener('click', function() {
+            // Simulate image upload process and display it in Image3
+            uploadedImage = 'your-uploaded-image-url'; // Replace with actual image URL from upload
+            document.getElementById('Image3').src = uploadedImage;
+            document.getElementById('Image3').style.visibility = 'visible';
+            document.getElementById('Canvas1').style.visibility = 'visible'; // Show canvas for overlay
+        });
+
+        // Show different gate designs when buttons are clicked
+        function showSwingGates() {
+            document.getElementById('WebViewer').src = 'https://github.com/AAC2024/AAC-App/blob/main/SwingGate1.png?raw=true';
+            document.getElementById('WebViewer').style.visibility = 'visible';
         }
 
-        // Function to hide canvas
-        function hideCanvas() {
-            document.getElementById('Canvas1').style.visibility = 'hidden';
-            document.getElementById('Image3').style.visibility = 'hidden';
+        function showCantileverGates() {
+            document.getElementById('WebViewer').src = 'https://github.com/AAC2024/AAC-App/blob/main/CantileverGate1.png?raw=true';
+            document.getElementById('WebViewer').style.visibility = 'visible';
         }
 
-        // Handle upload logic
-        document.getElementById('UploadButton').addEventListener('click', function() {
-            showCanvas();
-            // Simulate upload logic, set your uploaded image path here
-            document.getElementById('Image3').src = 'path-to-uploaded-image.png'; // Add your uploaded image path here
-        });
+        function showSlidingGates() {
+            document.getElementById('WebViewer').src = 'https://github.com/AAC2024/AAC-App/blob/main/SlidingGate1.png?raw=true';
+            document.getElementById('WebViewer').style.visibility = 'visible';
+        }
 
-        // Gate design options logic
+        // Add logic for pinch-to-zoom and drag for resizing and moving gate designs
+        function initCanvas() {
+            const canvas = document.getElementById('Canvas1');
+            const ctx = canvas.getContext('2d');
 
-        // Swing Gates Designs
-        const swingGateDesigns = [
-            'url1.png', 'url2.png', 'url3.png'
-        ];
+            // Example of drawing an image on canvas (gate design)
+            let gateDesign = new Image();
+            gateDesign.src = 'https://github.com/AAC2024/AAC-App/blob/main/YourGateDesign.png?raw=true'; // Replace with actual gate design URL
 
-        let currentSwingIndex = 0;
-        document.getElementById('SwingGateButton').addEventListener('click', function() {
-            showCanvas();
-            document.getElementById('Image3').src = swingGateDesigns[currentSwingIndex];
-            currentSwingIndex = (currentSwingIndex + 1) % swingGateDesigns.length;
-        });
+            gateDesign.onload = function() {
+                ctx.drawImage(gateDesign, 0, 0, canvas.width, canvas.height);
+            };
 
-        // Cantilever Gates Designs
-        const cantileverGateDesigns = [
-            'url4.png', 'url5.png', 'url6.png'
-        ];
+            // Add event listeners for drag and zoom (simple example, adjust as needed)
+            canvas.addEventListener('mousedown', function(e) {
+                // Handle dragging logic
+            });
 
-        let currentCantileverIndex = 0;
-        document.getElementById('CantileverGateButton').addEventListener('click', function() {
-            showCanvas();
-            document.getElementById('Image3').src = cantileverGateDesigns[currentCantileverIndex];
-            currentCantileverIndex = (currentCantileverIndex + 1) % cantileverGateDesigns.length;
-        });
+            canvas.addEventListener('wheel', function(e) {
+                // Handle zooming logic
+            });
+        }
 
-        // Sliding Gates Designs
-        const slidingGateDesigns = [
-            'url7.png', 'url8.png', 'url9.png'
-        ];
-
-        let currentSlidingIndex = 0;
-        document.getElementById('SlidingGateButton').addEventListener('click', function() {
-            showCanvas();
-            document.getElementById('Image3').src = slidingGateDesigns[currentSlidingIndex];
-            currentSlidingIndex = (currentSlidingIndex + 1) % slidingGateDesigns.length;
-        });
-
-        // Hide canvas when done
-        document.getElementById('FinishButton').addEventListener('click', function() {
-            hideCanvas();
-        });
+        // Initialize canvas when window loads
+        window.onload = function() {
+            initCanvas();
+        };
     </script>
 </body>
 </html>
+
