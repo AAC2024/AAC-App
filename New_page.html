@@ -6,10 +6,21 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
+      background-color: transparent;
+    }
+    #gateContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* Ensures that the gate overlay is non-interactive */
     }
     img {
       max-width: 100%;
-      height: auto;
+      max-height: 100%;
+      display: block;
+      margin: auto;
     }
   </style>
 </head>
@@ -73,4 +84,3 @@
   </script>
 </body>
 </html>
-
