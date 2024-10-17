@@ -11,14 +11,14 @@
             visibility: hidden; /* Hidden by default */
             top: 0;
             left: 0;
-            z-index: 5;
+            z-index: 1;
             background-color: transparent; /* Ensure no white background */
         }
 
         /* Ensure the image3 is on top */
         #Image3 {
             position: absolute;
-            z-index: 6; /* Ensure Image3 is on top */
+            z-index: 2; /* Ensure Image3 is on top */
         }
 
         /* Web viewer adjustments if necessary */
@@ -86,7 +86,29 @@
             currentSwingIndex = (currentSwingIndex + 1) % swingGateDesigns.length;
         });
 
-        // Other gate logic goes here...
+        // Cantilever Gates Designs
+        const cantileverGateDesigns = [
+            'url4.png', 'url5.png', 'url6.png'
+        ];
+
+        let currentCantileverIndex = 0;
+        document.getElementById('CantileverGateButton').addEventListener('click', function() {
+            showCanvas();
+            document.getElementById('Image3').src = cantileverGateDesigns[currentCantileverIndex];
+            currentCantileverIndex = (currentCantileverIndex + 1) % cantileverGateDesigns.length;
+        });
+
+        // Sliding Gates Designs
+        const slidingGateDesigns = [
+            'url7.png', 'url8.png', 'url9.png'
+        ];
+
+        let currentSlidingIndex = 0;
+        document.getElementById('SlidingGateButton').addEventListener('click', function() {
+            showCanvas();
+            document.getElementById('Image3').src = slidingGateDesigns[currentSlidingIndex];
+            currentSlidingIndex = (currentSlidingIndex + 1) % slidingGateDesigns.length;
+        });
 
         // Hide canvas when done
         document.getElementById('FinishButton').addEventListener('click', function() {
@@ -95,5 +117,3 @@
     </script>
 </body>
 </html>
-
-
